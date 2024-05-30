@@ -6,7 +6,7 @@ import altair as alt
 from PIL import Image
 
 # URL del servidor de tráfico
-url = "http://localhost:8081/crud/traffic/last"
+url = "http://localhost:8081/crud/traffic/last"  # Asegúrate de que esta URL sea accesible
 
 def obtener_datos_trafico(url):
     try:
@@ -68,8 +68,8 @@ def abrir_imagen_con_transparencia(path, size):
 def mostrar_control_semaforos():
     # Rutas de las imágenes (deben estar en el mismo directorio o en subdirectorios)
     base_image_path = "calle.jpeg"
-    semaforo_verde_path = "verde3.png"
-    semaforo_rojo_path = "rojo4.png"
+    semaforo_verde_path = "verde4.png"
+    semaforo_rojo_path = "rojo3.png"
 
     semaforo_size = (50, 50)  
 
@@ -101,7 +101,7 @@ def mostrar_control_semaforos():
             st.rerun()
         else:
             st.warning("No se pudo obtener datos del servidor.")
-            time.sleep(5)
+            time.sleep(0.2)
             st.rerun()
 
 pagina = st.sidebar.radio("Selecciona una página", ["Información de Tráfico", "Control de Semáforos"])
