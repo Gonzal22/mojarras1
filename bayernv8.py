@@ -80,7 +80,7 @@ def mostrar_control_semaforos():
     if base_image is None or semaforo_verde is None or semaforo_rojo is None:
         return
 
-    semaforo_positions = [ (380, 400), (490, 600), (600, 380), (480, 200)]
+    semaforo_positions = [ (380, 400),(490, 600),(600, 380),(480, 200)]
 
     while True:
         datos = obtener_datos_trafico(url)
