@@ -5,8 +5,7 @@ import pandas as pd
 import altair as alt
 from PIL import Image
 
-# URL del servidor de tráfico
-url= "https://mojarras-server.vercel.app/api/traffic/last" # Asegúrate de que esta URL sea accesible
+url= "https://mojarras-server.vercel.app/api/traffic/last" 
 
 def obtener_datos_trafico(url):
     try:
@@ -66,7 +65,7 @@ def abrir_imagen_con_transparencia(path, size):
         return None
 
 def mostrar_control_semaforos():
-    # Rutas de las imágenes (deben estar en el mismo directorio o en subdirectorios)
+    
     base_image_path = "calle.jpeg"
     semaforo_verde_path = "verde3.png"
     semaforo_rojo_path = "rojo4.png"
