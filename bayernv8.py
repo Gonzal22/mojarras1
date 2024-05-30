@@ -50,7 +50,7 @@ def mostrar_informacion_trafico():
             st.write(f"*Semáforo {i + 1}*: {num_cars} carros")
 
         time.sleep(0.2)
-        st.experimental_rerun()
+        st.rerun()
     else:
         st.warning("No se pudo obtener datos del servidor.")
 
@@ -98,10 +98,10 @@ def mostrar_control_semaforos():
 
             st.image(image_with_semaforos, use_column_width=True)
             time.sleep(0.2)
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.warning("No se pudo obtener datos del servidor.")
-            time.sleep(0.2)
+            time.sleep(5)
             st.experimental_rerun()
 
 pagina = st.sidebar.radio("Selecciona una página", ["Información de Tráfico", "Control de Semáforos"])
