@@ -7,7 +7,7 @@ from PIL import Image
 
 url = "https://mojarras-server.vercel.app/api/traffic/last"
 
-
+# Lista para almacenar los datos históricos
 historical_data = []
 
 def obtener_datos_trafico(url):
@@ -28,40 +28,27 @@ def obtener_datos_trafico(url):
 def mostrar_informacion_trafico():
     datos = obtener_datos_trafico(url)
     if datos:
-        timer = datos.get("timer", 0)
         cars = datos.get("cars", [])
+        
+        # Crear índice incremental basado en el número de iteraciones
+        timer = len(historical_data) + 1
+        
         st.write("### Timer ⏲️:")
         st.write(f"{timer} segundos")
         
-        st.write("### Número de carros por semáforo 🚗:")
+        # Resto del código sin cambios
         
-        df = pd.DataFrame({
-            'Semáforo': [f"Semáforo {i + 1}" for i in range(len(cars))],
-            'Número de carros': cars
-        })
-        
-        chart = alt.Chart(df).mark_bar().encode(
-            x='Semáforo',
-            y='Número de carros',
-            color='Semáforo'
-        )
-        
-        st.altair_chart(chart, use_container_width=True)
-        
-        for i, num_cars in enumerate(cars):
-            st.write(f"*Semáforo {i + 1}*: {num_cars} carros")
-
-      
-        total_cars = sum(cars)
         st.write("### Total de carros en todos los semáforos 🚗:")
+        total_cars = sum(cars)
         st.write(f"{total_cars} carros")
 
+        # Agregar datos al historial
         historical_data.append({'timer': timer, 'total_cars': total_cars})
 
-    
+        # Convertir el historial a un DataFrame
         df_total = pd.DataFrame(historical_data)
 
-       
+        # Crear gráfica lineal
         line_chart = alt.Chart(df_total).mark_line().encode(
             x='timer',
             y='total_cars',
