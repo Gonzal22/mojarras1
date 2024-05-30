@@ -64,6 +64,16 @@ def mostrar_informacion_trafico():
             x=alt.X('Total de carros', type='ordinal'),
             y='Total de carros'
         )
+
+        chart = alt.Chart(df).mark_bar(
+            color='#1f77b4'  # Color azul
+        ).encode(
+            x=alt.X('Semáforo', title='Semáforo'),  # Título del eje x
+            y=alt.Y('Número de carros', title='Número de carros'),  # Título del eje y
+            tooltip=['Semáforo', 'Número de carros']
+        ).properties(
+            width=alt.Step(40)  # Ancho de las barras
+        )
         
         st.altair_chart(chart_total, use_container_width=True)
 
