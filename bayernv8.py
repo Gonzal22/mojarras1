@@ -5,10 +5,7 @@ import pandas as pd
 import altair as alt
 from PIL import Image
 
-url = "https://mojarras-server.vercel.app/api/traffic/last"
-
-# Lista para almacenar los datos históricos
-historical_data = []
+url= "https://mojarras-server.vercel.app/api/traffic/last" 
 
 def obtener_datos_trafico(url):
     try:
@@ -28,38 +25,31 @@ def obtener_datos_trafico(url):
 def mostrar_informacion_trafico():
     datos = obtener_datos_trafico(url)
     if datos:
+        timer = datos.get("timer", 0)
         cars = datos.get("cars", [])
-        
-        # Crear índice incremental basado en el número de iteraciones
-        timer = len(historical_data) + 1
-        
         st.write("### Timer ⏲️:")
         st.write(f"{timer} segundos")
         
-        # Resto del código sin cambios
+        st.write("### Número de carros por semáforo 🚗:")
         
-        st.write("### Total de carros en todos los semáforos 🚗:")
-        total_cars = sum(cars)
-        st.write(f"{total_cars} carros")
-
-        # Agregar datos al historial
-        historical_data.append({'timer': timer, 'total_cars': total_cars})
-
-        # Convertir el historial a un DataFrame
-        df_total = pd.DataFrame(historical_data)
-
-        # Crear gráfica lineal
-        line_chart = alt.Chart(df_total).mark_line().encode(
-            x='timer',
-            y='total_cars',
-            tooltip=['timer', 'total_cars']
-        ).properties(
-            title="Total de carros a lo largo del tiempo"
+        df = pd.DataFrame({
+            'Semáforo': [f"Semáforo {i + 1}" for i in range(len(cars))],
+            'Número de carros': cars
+        })
+        
+        chart = alt.Chart(df).mark_bar().encode(
+            x='Semáforo',
+            y='Número de carros',
+            color='Semáforo'
         )
         
-        st.altair_chart(line_chart, use_container_width=True)
+        st.altair_chart(chart, use_container_width=True)
+        
+        for i, num_cars in enumerate(cars):
+            st.write(f"*Semáforo {i + 1}*: {num_cars} carros")
 
-        time.sleep(0.2)
+
+        time.sleep(0.5)
         st.rerun()
     else:
         st.warning("No se pudo obtener datos del servidor.")
@@ -76,20 +66,21 @@ def abrir_imagen_con_transparencia(path, size):
         return None
 
 def mostrar_control_semaforos():
+    
     base_image_path = "calle.jpeg"
     semaforo_verde_path = "verde3.png"
     semaforo_rojo_path = "rojo4.png"
 
     semaforo_size = (50, 50)  
 
-    base_image = abrir_imagen_con_transparencia(base_image_path, (1000, 800))
+    base_image = abrir_imagen_con_transparencia(base_image_path,(1000,800))
     semaforo_verde = abrir_imagen_con_transparencia(semaforo_verde_path, semaforo_size)
     semaforo_rojo = abrir_imagen_con_transparencia(semaforo_rojo_path, semaforo_size)
 
     if base_image is None or semaforo_verde is None or semaforo_rojo is None:
         return
 
-    semaforo_positions = [(380, 400), (490, 600), (600, 380), (480, 200)]
+    semaforo_positions = [ (380, 400),(490, 600),(600, 380),(480, 200)]
 
     while True:
         datos = obtener_datos_trafico(url)
@@ -106,11 +97,11 @@ def mostrar_control_semaforos():
                     image_with_semaforos.paste(semaforo_rojo, pos, semaforo_rojo)
 
             st.image(image_with_semaforos, use_column_width=True)
-            time.sleep(0.2)
+            time.sleep(0.5)
             st.rerun()
         else:
             st.warning("No se pudo obtener datos del servidor.")
-            time.sleep(0.2)
+            time.sleep(0.5)
             st.rerun()
 
 pagina = st.sidebar.radio("Selecciona una página", ["Información de Tráfico", "Control de Semáforos"])
