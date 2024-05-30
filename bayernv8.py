@@ -5,7 +5,10 @@ import pandas as pd
 import altair as alt
 from PIL import Image
 
-url= "https://mojarras-server.vercel.app/api/traffic/last" 
+url = "https://mojarras-server.vercel.app/api/traffic/last"
+
+
+historical_data = []
 
 def obtener_datos_trafico(url):
     try:
@@ -48,21 +51,26 @@ def mostrar_informacion_trafico():
         for i, num_cars in enumerate(cars):
             st.write(f"*Semáforo {i + 1}*: {num_cars} carros")
 
-        # Nueva gráfica de la suma total de carros
+      
         total_cars = sum(cars)
         st.write("### Total de carros en todos los semáforos 🚗:")
         st.write(f"{total_cars} carros")
-        
-        df_total = pd.DataFrame({
-            'Total de carros': [total_cars]
-        })
-        
-        chart_total = alt.Chart(df_total).mark_bar().encode(
-            x=alt.X('Total de carros', type='ordinal'),
-            y='Total de carros'
+
+        historical_data.append({'timer': timer, 'total_cars': total_cars})
+
+    
+        df_total = pd.DataFrame(historical_data)
+
+       
+        line_chart = alt.Chart(df_total).mark_line().encode(
+            x='timer',
+            y='total_cars',
+            tooltip=['timer', 'total_cars']
+        ).properties(
+            title="Total de carros a lo largo del tiempo"
         )
         
-        st.altair_chart(chart_total, use_container_width=True)
+        st.altair_chart(line_chart, use_container_width=True)
 
         time.sleep(0.2)
         st.rerun()
@@ -81,7 +89,6 @@ def abrir_imagen_con_transparencia(path, size):
         return None
 
 def mostrar_control_semaforos():
-    # Rutas de las imágenes (deben estar en el mismo directorio o en subdirectorios)
     base_image_path = "calle.jpeg"
     semaforo_verde_path = "verde3.png"
     semaforo_rojo_path = "rojo4.png"
