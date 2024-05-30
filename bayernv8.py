@@ -5,8 +5,7 @@ import pandas as pd
 import altair as alt
 from PIL import Image
 
-# URL del servidor de tráfico
-url = "http://localhost:8081/crud/traffic/last"  # Asegúrate de que esta URL sea accesible
+url= "https://mojarras-server.vercel.app/api/traffic/last" 
 
 def obtener_datos_trafico(url):
     try:
