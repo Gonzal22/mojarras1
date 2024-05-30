@@ -62,16 +62,22 @@ def mostrar_informacion_trafico():
             'Número de carros': cars
         })
         
-        chart_total = alt.Chart(df_total).mark_point(
-            filled=True,
-            size=100,
-            color='#d62728'  # Color rojo
+        chart_total = alt.Chart(df_total).mark_bar(
+            color='#d62728'  # Color rojo, puedes cambiarlo
         ).encode(
-            x=alt.X('Semáforo', title='Semáforo'),
-            y=alt.Y('Número de carros', title='Número de carros'),
+            x=alt.X('Semáforo', title='Semáforo'),  # Título del eje x
+            y=alt.Y('Número de carros', title='Número de carros'),  # Título del eje y
             tooltip=['Semáforo', 'Número de carros']
         ).properties(
-            title="Número de carros por semáforo"
+            width=alt.Step(40),  # Ancho de las barras, puedes ajustarlo
+            title="Número de carros por semáforo"  # Título de la gráfica
+        ).configure_axis(
+            labelFontSize=12,  # Tamaño de la fuente de las etiquetas de los ejes
+            titleFontSize=14  # Tamaño de la fuente de los títulos de los ejes
+        ).configure_title(
+            fontSize=16,  # Tamaño de la fuente del título de la gráfica
+            anchor='start',  # Posición del título (start, middle, end)
+            color='blue'  # Color del título, puedes cambiarlo
         )
         
         st.altair_chart(chart_total, use_container_width=True)
@@ -80,6 +86,7 @@ def mostrar_informacion_trafico():
         st.rerun()
     else:
         st.warning("No se pudo obtener datos del servidor.")
+
 
 def abrir_imagen_con_transparencia(path, size):
     try:
