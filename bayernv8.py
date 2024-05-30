@@ -52,7 +52,25 @@ def mostrar_informacion_trafico():
         for i, num_cars in enumerate(cars):
             st.write(f"*Semáforo {i + 1}*: {num_cars} carros")
 
-        # Resto del código sin cambios
+        total_cars = sum(cars)
+        st.write("### Total de carros en todos los semáforos 🚗:")
+        st.write(f"{total_cars} carros")
+        
+        df_total = pd.DataFrame({
+            'Total de carros': [total_cars]
+        })
+        
+        chart_total = alt.Chart(df_total).mark_bar().encode(
+            x=alt.X('Total de carros', type='ordinal'),
+            y='Total de carros'
+        )
+        
+        st.altair_chart(chart_total, use_container_width=True)
+
+        time.sleep(0.2)
+        st.rerun()
+    else:
+        st.warning("No se pudo obtener datos del servidor.")
 
 def abrir_imagen_con_transparencia(path, size):
     try:
