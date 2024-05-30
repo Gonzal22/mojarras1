@@ -52,27 +52,26 @@ def mostrar_informacion_trafico():
         for i, num_cars in enumerate(cars):
             st.write(f"*Semáforo {i + 1}*: {num_cars} carros")
 
+        # Nueva gráfica de la suma total de carros
         total_cars = sum(cars)
         st.write("### Total de carros en todos los semáforos 🚗:")
         st.write(f"{total_cars} carros")
         
         df_total = pd.DataFrame({
-            'Total de carros': [total_cars]
+            'Semáforo': [f"Semáforo {i + 1}" for i in range(len(cars))],
+            'Número de carros': cars
         })
         
-        chart_total = alt.Chart(df_total).mark_bar().encode(
-            x=alt.X('Total de carros', type='ordinal'),
-            y='Total de carros'
-        )
-
-        chart = alt.Chart(df).mark_bar(
-            color='#1f77b4'  # Color azul
+        chart_total = alt.Chart(df_total).mark_point(
+            filled=True,
+            size=100,
+            color='#d62728'  # Color rojo
         ).encode(
-            x=alt.X('Semáforo', title='Semáforo'),  # Título del eje x
-            y=alt.Y('Número de carros', title='Número de carros'),  # Título del eje y
+            x=alt.X('Semáforo', title='Semáforo'),
+            y=alt.Y('Número de carros', title='Número de carros'),
             tooltip=['Semáforo', 'Número de carros']
         ).properties(
-            width=alt.Step(40)  # Ancho de las barras
+            title="Número de carros por semáforo"
         )
         
         st.altair_chart(chart_total, use_container_width=True)
