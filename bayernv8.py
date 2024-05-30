@@ -102,7 +102,7 @@ def mostrar_control_semaforos():
         else:
             st.warning("No se pudo obtener datos del servidor.")
             time.sleep(5)
-            st.experimental_rerun()
+            st.rerun()
 
 pagina = st.sidebar.radio("Selecciona una página", ["Información de Tráfico", "Control de Semáforos"])
 
