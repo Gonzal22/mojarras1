@@ -77,14 +77,14 @@ def abrir_imagen_con_transparencia(path, size):
 def mostrar_control_semaforos():
     
     
-    base_image_path = r"C:\Users\wgons\Downloads\bayern\calle.jpeg"
+    base_image_path = "calle.jpeg"
     base_image = Image.open(base_image_path)
 
     semaforo_size = (50, 50)  
 
     
-    semaforo_verde_path = r"C:\Users\wgons\Downloads\bayern\verde3.png"
-    semaforo_rojo_path = r"C:\Users\wgons\Downloads\bayern\rojo4.png"
+    semaforo_verde_path = "verde3.png"
+    semaforo_rojo_path = "rojo4.png"
     semaforo_verde = abrir_imagen_con_transparencia(semaforo_verde_path, semaforo_size)
     semaforo_rojo = abrir_imagen_con_transparencia(semaforo_rojo_path, semaforo_size)
 
