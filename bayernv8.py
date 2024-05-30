@@ -5,7 +5,7 @@ import pandas as pd
 import altair as alt
 from PIL import Image
 
-url= "https://mojarras-server.vercel.app/api/traffic/last" 
+url = "https://mojarras-server.vercel.app/api/traffic/last"
 
 def obtener_datos_trafico(url):
     try:
@@ -37,10 +37,14 @@ def mostrar_informacion_trafico():
             'Número de carros': cars
         })
         
-        chart = alt.Chart(df).mark_bar().encode(
-            x='Semáforo',
-            y='Número de carros',
-            color='Semáforo'
+        chart = alt.Chart(df).mark_bar(
+            color='#1f77b4'  # Color azul
+        ).encode(
+            x=alt.X('Semáforo', title='Semáforo'),  # Título del eje x
+            y=alt.Y('Número de carros', title='Número de carros'),  # Título del eje y
+            tooltip=['Semáforo', 'Número de carros']
+        ).properties(
+            width=alt.Step(40)  # Ancho de las barras
         )
         
         st.altair_chart(chart, use_container_width=True)
@@ -48,26 +52,7 @@ def mostrar_informacion_trafico():
         for i, num_cars in enumerate(cars):
             st.write(f"*Semáforo {i + 1}*: {num_cars} carros")
 
-        # Nueva gráfica de la suma total de carros
-        total_cars = sum(cars)
-        st.write("### Total de carros en todos los semáforos 🚗:")
-        st.write(f"{total_cars} carros")
-        
-        df_total = pd.DataFrame({
-            'Total de carros': [total_cars]
-        })
-        
-        chart_total = alt.Chart(df_total).mark_bar().encode(
-            x=alt.X('Total de carros', type='ordinal'),
-            y='Total de carros'
-        )
-        
-        st.altair_chart(chart_total, use_container_width=True)
-
-        time.sleep(0.2)
-        st.rerun()
-    else:
-        st.warning("No se pudo obtener datos del servidor.")
+        # Resto del código sin cambios
 
 def abrir_imagen_con_transparencia(path, size):
     try:
