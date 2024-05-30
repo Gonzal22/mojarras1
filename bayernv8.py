@@ -68,8 +68,8 @@ def abrir_imagen_con_transparencia(path, size):
 def mostrar_control_semaforos():
     # Rutas de las imágenes (deben estar en el mismo directorio o en subdirectorios)
     base_image_path = "calle.jpeg"
-    semaforo_verde_path = "verde.png"
-    semaforo_rojo_path = "rojo.png"
+    semaforo_verde_path = "verde3.png"
+    semaforo_rojo_path = "rojo4.png"
 
     semaforo_size = (50, 50)  
 
