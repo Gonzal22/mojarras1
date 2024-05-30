@@ -38,13 +38,13 @@ def mostrar_informacion_trafico():
         })
         
         chart = alt.Chart(df).mark_bar(
-            color='#1f77b4'  # Color azul
+            color='#1EC2BD' 
         ).encode(
-            x=alt.X('Semáforo', title='Semáforo'),  # Título del eje x
-            y=alt.Y('Número de carros', title='Número de carros'),  # Título del eje y
+            x=alt.X('Semáforo', title='Semáforo'), 
+            y=alt.Y('Número de carros', title='Número de carros'),  
             tooltip=['Semáforo', 'Número de carros']
         ).properties(
-            width=alt.Step(40)  # Ancho de las barras
+            width=alt.Step(30)  
         )
         
         st.altair_chart(chart, use_container_width=True)
@@ -52,7 +52,7 @@ def mostrar_informacion_trafico():
         for i, num_cars in enumerate(cars):
             st.write(f"*Semáforo {i + 1}*: {num_cars} carros")
 
-        # Nueva gráfica de la suma total de carros
+        
         total_cars = sum(cars)
         st.write("### Total de carros en todos los semáforos 🚗:")
         st.write(f"{total_cars} carros")
@@ -65,7 +65,7 @@ def mostrar_informacion_trafico():
         chart_total = alt.Chart(df_total).mark_point(
             filled=True,
             size=100,
-            color='#d62728'  # Color rojo
+            color='#55E82E' 
         ).encode(
             x=alt.X('Semáforo', title='Semáforo'),
             y=alt.Y('Número de carros', title='Número de carros'),
@@ -93,7 +93,7 @@ def abrir_imagen_con_transparencia(path, size):
         return None
 
 def mostrar_control_semaforos():
-    # Rutas de las imágenes (deben estar en el mismo directorio o en subdirectorios)
+    
     base_image_path = "calle.jpeg"
     semaforo_verde_path = "verde3.png"
     semaforo_rojo_path = "rojo4.png"
