@@ -44,7 +44,7 @@ def mostrar_informacion_trafico():
             y=alt.Y('Número de carros', title='Número de carros'),  
             tooltip=['Semáforo', 'Número de carros']
         ).properties(
-            width=alt.Step(80)  
+            width=alt.Step(100)  
         )
         
         st.altair_chart(chart, use_container_width=True)
