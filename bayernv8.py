@@ -73,7 +73,7 @@ def mostrar_control_semaforos():
 
     semaforo_size = (50, 50)  
 
-    base_image = abrir_imagen_con_transparencia(base_image_path, (800, 600))
+    base_image = abrir_imagen_con_transparencia(base_image_path)
     semaforo_verde = abrir_imagen_con_transparencia(semaforo_verde_path, semaforo_size)
     semaforo_rojo = abrir_imagen_con_transparencia(semaforo_rojo_path, semaforo_size)
 
